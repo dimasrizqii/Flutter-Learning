@@ -24,7 +24,15 @@ Materi pengenalan bahasa pemrograman Dart dan struktur kontrol conditional.
 Mempelajari perulangan (looping) dan fungsi (function) dalam Dart.
 
 - **Tugas 3A - Looping**: Implementasi berbagai jenis perulangan (for, while, do-while) ([looping.dart](Tugas-3-Looping%20dan%20Function/Tugas-3A-Looping/looping.dart))
-- **Tugas 3B - Function**: Membuat dan menggunakan fungsi di Dart ([function.dart])
+- **Tugas 3B - Function**: Membuat dan menggunakan fungsi di Dart ([function.dart](Tugas-3-Looping%20dan%20Function/Tugas-3B-Function/function.dart))
+
+### Tugas 4 - List dan Map
+
+Mempelajari struktur data List dan Map dalam Dart.
+
+- **Soal 1**: Range ([soal1.dart](Tugas-4-List%20dan%20Map/soal1.dart))
+- **Soal 2**: Range With Step ([soal2.dart](Tugas-4-List%20dan%20Map/soal2.dart))
+- **Soal 3**: List Multidimensi ([soal3.dart](Tugas-4-List%20dan%20Map/soal3.dart))
 
 ## Cara Menjalankan
 
@@ -49,9 +57,15 @@ BootcampFlutter/
 │   │   └── type.dart
 │   └── Tugas-2B-Conditional/
 │       └── conditional.dart
-└── Tugas-3-Looping dan Function/
-    ├── Tugas-3A-Looping/
-    │   └── looping.dart
+├── Tugas-3-Looping dan Function/
+│   ├── Tugas-3A-Looping/
+│   │   └── looping.dart
+│   └── Tugas-3B-Function/
+│       └── function.dart
+└── Tugas-4-List dan Map/
+    ├── soal1.dart
+    ├── soal2.dart
+    └── soal3.dart
 ```
 
 ## Teknologi yang Digunakan

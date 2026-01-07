@@ -80,23 +80,16 @@ class _RegisterPageState extends State<RegisterPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const SizedBox(height: 40),
-
+                  const SizedBox(height: 20),
                   Container(
                     height: 200,
                     decoration: BoxDecoration(
-                      color: Colors.grey[100],
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Center(
-                      child: Icon(
-                        Icons.chat_bubble_outline,
-                        size: 80,
-                        color: Colors.blue[400],
+                      image: DecorationImage(
+                        image: AssetImage('assets/images/register.png'),
                       ),
                     ),
                   ),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 20),
 
                   // First Name Field
                   TextFormField(

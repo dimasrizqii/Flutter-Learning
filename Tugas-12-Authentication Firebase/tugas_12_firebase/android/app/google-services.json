@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "790804602576",
+    "project_id": "fir-auth-flutter-5fc6a",
+    "storage_bucket": "fir-auth-flutter-5fc6a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:790804602576:android:c33fdb24afe162b76dc8d5",
+        "android_client_info": {
+          "package_name": "com.example.tugas_12_firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "790804602576-pceq52jdgdojfjn3co7l80pqvrh8fg7o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDj6O-30kPT3fbgsuaPUa1zrppq-ZWzMU0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "790804602576-pceq52jdgdojfjn3co7l80pqvrh8fg7o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -30,36 +30,11 @@ class HomePage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          _buildPageIndicator(context),
           Expanded(child: _buildBody(context)),
           _buildPaginationControls(context),
         ],
       ),
     );
-  }
-
-  Widget _buildPageIndicator(BuildContext context) {
-    final state = context.watch<PostBloc>().state;
-    if (state is PostLoaded) {
-      return Container(
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-        decoration: const BoxDecoration(color: Color(0xFF1A1A35)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Page ${state.currentPage} of ${state.totalPages}',
-              style: const TextStyle(
-                color: Color(0xFF6C5CE7),
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-    return const SizedBox();
   }
 
   Widget _buildPaginationControls(BuildContext context) {

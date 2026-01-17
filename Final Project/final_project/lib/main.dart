@@ -10,6 +10,7 @@ import 'firebase_options.dart';
 import 'presentation/blocs/auth/auth_bloc.dart';
 import 'presentation/blocs/auth/auth_event.dart';
 import 'presentation/blocs/product/product_bloc.dart';
+import 'presentation/blocs/cart/cart_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
+        BlocProvider(create: (context) => CartBloc()),
       ],
       child: MaterialApp.router(
         title: 'ShopApp',

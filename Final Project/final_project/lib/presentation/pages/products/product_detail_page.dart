@@ -1,9 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import '../../blocs/product/product_bloc.dart';
 import '../../blocs/product/product_event.dart';
 import '../../blocs/product/product_state.dart';
+import '../../blocs/cart/cart_bloc.dart';
+import '../../blocs/cart/cart_event.dart';
 
 class ProductDetailPage extends StatefulWidget {
   final int productId;
@@ -171,10 +174,20 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               ),
               child: FilledButton(
                 onPressed: () {
+                  context.read<CartBloc>().add(AddToCart(state.product));
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Added to cart!'),
+                    SnackBar(
+                      content: const Text('Added to cart!'),
                       backgroundColor: Colors.green,
+                      behavior: SnackBarBehavior.floating,
+                      duration: const Duration(seconds: 3),
+                      action: SnackBarAction(
+                        label: 'View Cart',
+                        textColor: Colors.white,
+                        onPressed: () {
+                          context.go('/home?tab=2');
+                        },
+                      ),
                     ),
                   );
                 },

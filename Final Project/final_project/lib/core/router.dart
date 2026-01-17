@@ -28,7 +28,11 @@ final router = GoRouter(
     ),
     GoRoute(
       path: '/home',
-      builder: (context, state) => const MainNavigationPage(initialIndex: 0),
+      builder: (context, state) {
+        final tabParam = state.uri.queryParameters['tab'];
+        final initialIndex = tabParam != null ? int.tryParse(tabParam) ?? 0 : 0;
+        return MainNavigationPage(initialIndex: initialIndex);
+      },
     ),
     GoRoute(
       path: '/products',

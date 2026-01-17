@@ -6,6 +6,7 @@ import '../../blocs/product/product_event.dart';
 import '../../blocs/product/product_state.dart';
 import '../../blocs/auth/auth_bloc.dart';
 import '../../blocs/auth/auth_state.dart';
+import '../../../core/router.dart'; // For routeObserver
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,10 +15,32 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with RouteAware {
   @override
   void initState() {
     super.initState();
+    context.read<ProductBloc>().add(LoadCategories());
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Subscribe to route changes
+    final route = ModalRoute.of(context);
+    if (route is PageRoute) {
+      routeObserver.subscribe(this, route);
+    }
+  }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    super.dispose();
+  }
+
+  @override
+  void didPopNext() {
+    print('🔄 HomePage: User returned, reloading categories...');
     context.read<ProductBloc>().add(LoadCategories());
   }
 

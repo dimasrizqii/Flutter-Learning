@@ -17,9 +17,25 @@ class ProductsPage extends StatefulWidget {
 }
 
 class _ProductsPageState extends State<ProductsPage> {
+  bool _isInitialized = false;
+
   @override
   void initState() {
     super.initState();
+    _loadProducts();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_isInitialized) {
+      _isInitialized = true;
+    } else {
+      _loadProducts();
+    }
+  }
+
+  void _loadProducts() {
     if (widget.category == null) {
       context.read<ProductBloc>().add(LoadAllProducts());
     } else {

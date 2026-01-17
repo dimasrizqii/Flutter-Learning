@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import '../../blocs/auth/auth_bloc.dart';
+import '../../blocs/auth/auth_state.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -32,6 +35,21 @@ class _SplashPageState extends State<SplashPage>
     );
 
     _animationController.forward();
+
+    Future.delayed(const Duration(seconds: 2), () {
+      if (mounted) {
+        _navigateBasedOnAuth();
+      }
+    });
+  }
+
+  void _navigateBasedOnAuth() {
+    final authState = context.read<AuthBloc>().state;
+    if (authState is Authenticated) {
+      context.go('/home');
+    } else {
+      context.go('/login');
+    }
   }
 
   @override

@@ -1,11 +1,11 @@
 import 'package:go_router/go_router.dart';
 import '../presentation/pages/splash/splash_page.dart';
+import '../presentation/pages/onboarding/onboarding_page.dart';
 import '../presentation/pages/auth/login_page.dart';
 import '../presentation/pages/auth/register_page.dart';
-import '../presentation/pages/home/home_page.dart';
+import '../presentation/pages/main_navigation/main_navigation_page.dart';
 import '../presentation/pages/products/products_page.dart';
 import '../presentation/pages/products/product_detail_page.dart';
-import '../presentation/pages/profile/profile_page.dart';
 import 'package:flutter/material.dart';
 
 final RouteObserver<ModalRoute<void>> routeObserver =
@@ -17,12 +17,19 @@ final router = GoRouter(
   initialLocation: '/',
   routes: [
     GoRoute(path: '/', builder: (context, state) => const SplashPage()),
+    GoRoute(
+      path: '/onboarding',
+      builder: (context, state) => const OnboardingPage(),
+    ),
     GoRoute(path: '/login', builder: (context, state) => const LoginPage()),
     GoRoute(
       path: '/register',
       builder: (context, state) => const RegisterPage(),
     ),
-    GoRoute(path: '/home', builder: (context, state) => const HomePage()),
+    GoRoute(
+      path: '/home',
+      builder: (context, state) => const MainNavigationPage(initialIndex: 0),
+    ),
     GoRoute(
       path: '/products',
       builder: (context, state) {
@@ -37,6 +44,5 @@ final router = GoRouter(
         return ProductDetailPage(productId: id);
       },
     ),
-    GoRoute(path: '/profile', builder: (context, state) => const ProfilePage()),
   ],
 );

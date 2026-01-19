@@ -7,6 +7,8 @@ import '../../blocs/product/product_event.dart';
 import '../../blocs/product/product_state.dart';
 import '../../blocs/cart/cart_bloc.dart';
 import '../../blocs/cart/cart_event.dart';
+import '../../blocs/auth/auth_bloc.dart';
+import '../../blocs/auth/auth_state.dart';
 
 class ProductDetailPage extends StatefulWidget {
   final int productId;
@@ -174,22 +176,43 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               ),
               child: FilledButton(
                 onPressed: () {
-                  context.read<CartBloc>().add(AddToCart(state.product));
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: const Text('Added to cart!'),
-                      backgroundColor: Colors.green,
-                      behavior: SnackBarBehavior.floating,
-                      duration: const Duration(seconds: 3),
-                      action: SnackBarAction(
-                        label: 'View Cart',
-                        textColor: Colors.white,
-                        onPressed: () {
-                          context.go('/home?tab=2');
-                        },
+                  final authBloc = context.read<AuthBloc>();
+                  final authState = authBloc.state;
+
+                  if (authState is Authenticated) {
+                    context.read<CartBloc>().add(
+                      AddToCart(
+                        product: state.product,
+                        userId: authState.user.uid,
+                        userName:
+                            authState.user.displayName ??
+                            authState.user.email ??
+                            'User',
                       ),
-                    ),
-                  );
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: const Text('Added to cart!'),
+                        backgroundColor: Colors.green,
+                        behavior: SnackBarBehavior.floating,
+                        duration: const Duration(seconds: 3),
+                        action: SnackBarAction(
+                          label: 'View Cart',
+                          textColor: Colors.white,
+                          onPressed: () {
+                            context.go('/home?tab=2');
+                          },
+                        ),
+                      ),
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Please login to add items to cart'),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  }
                 },
                 child: const Padding(
                   padding: EdgeInsets.all(16),

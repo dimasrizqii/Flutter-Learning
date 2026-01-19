@@ -6,11 +6,14 @@ import 'core/router.dart';
 import 'core/theme/app_theme.dart';
 import 'data/datasources/product_remote_datasource.dart';
 import 'data/repositories/product_repository_impl.dart';
+import 'data/repositories/cart_repository_impl.dart';
 import 'firebase_options.dart';
 import 'presentation/blocs/auth/auth_bloc.dart';
 import 'presentation/blocs/auth/auth_event.dart';
+import 'presentation/blocs/auth/auth_state.dart';
 import 'presentation/blocs/product/product_bloc.dart';
 import 'presentation/blocs/cart/cart_bloc.dart';
+import 'presentation/blocs/cart/cart_event.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,13 +38,22 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        BlocProvider(create: (context) => CartBloc()),
+        BlocProvider(
+          create: (context) => CartBloc(cartRepository: CartRepositoryImpl()),
+        ),
       ],
-      child: MaterialApp.router(
-        title: 'ShopApp',
-        theme: AppTheme.lightTheme,
-        debugShowCheckedModeBanner: false,
-        routerConfig: router,
+      child: BlocListener<AuthBloc, AuthState>(
+        listener: (context, authState) {
+          if (authState is Authenticated) {
+            context.read<CartBloc>().add(LoadCart(authState.user.uid));
+          }
+        },
+        child: MaterialApp.router(
+          title: 'ShopApp',
+          theme: AppTheme.lightTheme,
+          debugShowCheckedModeBanner: false,
+          routerConfig: router,
+        ),
       ),
     );
   }

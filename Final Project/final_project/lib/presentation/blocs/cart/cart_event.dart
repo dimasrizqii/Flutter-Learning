@@ -8,34 +8,60 @@ abstract class CartEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class AddToCart extends CartEvent {
-  final ProductModel product;
+class LoadCart extends CartEvent {
+  final String userId;
 
-  const AddToCart(this.product);
+  const LoadCart(this.userId);
 
   @override
-  List<Object?> get props => [product];
+  List<Object?> get props => [userId];
+}
+
+class AddToCart extends CartEvent {
+  final ProductModel product;
+  final String userId;
+  final String userName;
+
+  const AddToCart({
+    required this.product,
+    required this.userId,
+    required this.userName,
+  });
+
+  @override
+  List<Object?> get props => [product, userId, userName];
 }
 
 class RemoveFromCart extends CartEvent {
   final int productId;
+  final String userId;
 
-  const RemoveFromCart(this.productId);
+  const RemoveFromCart({required this.productId, required this.userId});
 
   @override
-  List<Object?> get props => [productId];
+  List<Object?> get props => [productId, userId];
 }
 
 class UpdateQuantity extends CartEvent {
   final int productId;
   final int quantity;
+  final String userId;
 
-  const UpdateQuantity(this.productId, this.quantity);
+  const UpdateQuantity({
+    required this.productId,
+    required this.quantity,
+    required this.userId,
+  });
 
   @override
-  List<Object?> get props => [productId, quantity];
+  List<Object?> get props => [productId, quantity, userId];
 }
 
 class ClearCart extends CartEvent {
-  const ClearCart();
+  final String userId;
+
+  const ClearCart(this.userId);
+
+  @override
+  List<Object?> get props => [userId];
 }

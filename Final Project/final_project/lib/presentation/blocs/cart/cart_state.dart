@@ -12,6 +12,10 @@ class CartInitial extends CartState {
   const CartInitial();
 }
 
+class CartLoading extends CartState {
+  const CartLoading();
+}
+
 class CartLoaded extends CartState {
   final List<CartItem> items;
   final double total;

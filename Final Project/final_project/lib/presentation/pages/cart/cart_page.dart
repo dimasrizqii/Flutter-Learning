@@ -5,6 +5,8 @@ import '../../../data/models/cart_item.dart';
 import '../../blocs/cart/cart_bloc.dart';
 import '../../blocs/cart/cart_event.dart';
 import '../../blocs/cart/cart_state.dart';
+import '../../blocs/auth/auth_bloc.dart';
+import '../../blocs/auth/auth_state.dart';
 import 'package:intl/intl.dart';
 
 class CartPage extends StatelessWidget {
@@ -34,7 +36,12 @@ class CartPage extends StatelessWidget {
                           ),
                           FilledButton(
                             onPressed: () {
-                              context.read<CartBloc>().add(const ClearCart());
+                              final authState = context.read<AuthBloc>().state;
+                              if (authState is Authenticated) {
+                                context.read<CartBloc>().add(
+                                  ClearCart(authState.user.uid),
+                                );
+                              }
                               Navigator.pop(ctx);
                             },
                             child: const Text('Clear'),
@@ -168,7 +175,11 @@ class CartPage extends StatelessWidget {
                         IconButton(
                           onPressed: () {
                             context.read<CartBloc>().add(
-                              UpdateQuantity(item.productId, item.quantity - 1),
+                              UpdateQuantity(
+                                productId: item.productId,
+                                quantity: item.quantity - 1,
+                                userId: item.userId,
+                              ),
                             );
                           },
                           icon: const Icon(Icons.remove, size: 16),
@@ -191,7 +202,11 @@ class CartPage extends StatelessWidget {
                         IconButton(
                           onPressed: () {
                             context.read<CartBloc>().add(
-                              UpdateQuantity(item.productId, item.quantity + 1),
+                              UpdateQuantity(
+                                productId: item.productId,
+                                quantity: item.quantity + 1,
+                                userId: item.userId,
+                              ),
                             );
                           },
                           icon: const Icon(Icons.add, size: 16),
@@ -214,7 +229,12 @@ class CartPage extends StatelessWidget {
             ),
             IconButton(
               onPressed: () {
-                context.read<CartBloc>().add(RemoveFromCart(item.productId));
+                context.read<CartBloc>().add(
+                  RemoveFromCart(
+                    productId: item.productId,
+                    userId: item.userId,
+                  ),
+                );
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text('Item removed from cart'),
